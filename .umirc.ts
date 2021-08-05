@@ -69,7 +69,7 @@ export default defineConfig({
   workerLoader: {},
   nodeModulesTransform: { type: 'none', exclude: [] }, // 编译优化 不希望 node_modules 下的文件走 babel 编译
   targets: { chrome: 79, firefox: false, safari: false, edge: false, ios: false }, // 选择合适的浏览器版本，可减少不少尺寸
-  ignoreMomentLocale: true, // 忽略 moment 的 locale 文件，用于减少尺寸 ===> 使用 dayjs 代替了
+  // ignoreMomentLocale: true, // 忽略 moment 的 locale 文件，用于减少尺寸 ===> 使用 dayjs 代替了
 
   analyze: {
     analyzerMode: 'server',
