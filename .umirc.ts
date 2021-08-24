@@ -19,17 +19,15 @@ export default defineConfig({
   locale: { default: 'zh-CN' }, // 默认中文
 
   // 配置 external
-  externals: { react: 'window.React', 'react-dom': 'window.ReactDOM' },
-  scripts:
-    process.env.NODE_ENV === 'development'
-      ? [
-          'https://gw.alipayobjects.com/os/lib/react/17.0.2/umd/react.development.js',
-          'https://gw.alipayobjects.com/os/lib/react-dom/17.0.2/umd/react-dom.development.js',
-        ]
-      : [
-          'https://gw.alipayobjects.com/os/lib/react/17.0.2/umd/react.production.min.js',
-          'https://gw.alipayobjects.com/os/lib/react-dom/17.0.2/umd/react-dom.production.min.js',
-        ],
+  externals: process.env.NODE_ENV !== 'development' && {
+    react: 'window.React',
+    'react-dom': 'window.ReactDOM',
+  },
+
+  scripts: process.env.NODE_ENV !== 'development' && [
+    'https://gw.alipayobjects.com/os/lib/react/17.0.2/umd/react.production.min.js',
+    'https://gw.alipayobjects.com/os/lib/react-dom/17.0.2/umd/react-dom.production.min.js',
+  ],
 
   chunks: ['antd', 'umi'],
   chainWebpack(config) {
@@ -64,7 +62,7 @@ export default defineConfig({
   devtool: 'eval', // 使用最低成本的 sourcemap 生成方式，默认是 cheap-module-source-map
   esbuild: {}, // 试验性功能，可能有坑，但效果拔群。
   webpack5: {}, // 使用 webpack 5 代替 webpack 4 进行构建。
-  mfsu: {}, // mfsu 是一种基于 webpack5 新特性 Module Federation 的打包提速方案
+  // mfsu: {}, // mfsu 是一种基于 webpack5 新特性 Module Federation 的打包提速方案
   fastRefresh: {},
   workerLoader: {},
   nodeModulesTransform: { type: 'none', exclude: [] }, // 编译优化 不希望 node_modules 下的文件走 babel 编译
